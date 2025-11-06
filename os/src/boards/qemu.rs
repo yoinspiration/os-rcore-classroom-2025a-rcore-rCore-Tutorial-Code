@@ -1,4 +1,7 @@
-//ref:: https://github.com/andre-richter/qemu-exit
+//! QEMU exit mechanism for RISC-V platforms
+//!
+//! This module provides functionality to exit QEMU with different exit codes.
+//! Reference: https://github.com/andre-richter/qemu-exit
 use core::arch::asm;
 
 const EXIT_SUCCESS: u32 = 0x5555; // Equals `exit(0)`. qemu successful exit
@@ -7,6 +10,7 @@ const EXIT_FAILURE_FLAG: u32 = 0x3333;
 const EXIT_FAILURE: u32 = exit_code_encode(1); // Equals `exit(1)`. qemu failed exit
 const EXIT_RESET: u32 = 0x7777; // qemu reset
 
+/// Trait for exiting QEMU with various exit codes
 pub trait QEMUExit {
     /// Exit with specified return code.
     ///
@@ -76,4 +80,5 @@ impl QEMUExit for RISCV64 {
 
 const VIRT_TEST: u64 = 0x100000;
 
+/// Global QEMU exit handle for RISC-V64 platform
 pub const QEMU_EXIT_HANDLE: RISCV64 = RISCV64::new(VIRT_TEST);

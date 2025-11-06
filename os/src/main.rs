@@ -29,6 +29,8 @@ extern crate alloc;
 
 #[macro_use]
 mod console;
+/// Board-specific support code
+pub mod boards;
 pub mod config;
 mod heap_alloc;
 pub mod lang_items;
