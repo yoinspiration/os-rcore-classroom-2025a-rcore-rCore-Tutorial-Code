@@ -15,6 +15,7 @@ mod switch;
 mod task;
 
 use crate::loader::{get_app_data, get_num_app};
+use crate::sbi;
 use crate::sync::UPSafeCell;
 use crate::trap::TrapContext;
 use alloc::vec::Vec;
@@ -150,7 +151,8 @@ impl TaskManager {
             }
             // go back to user mode
         } else {
-            panic!("All applications completed!");
+            println!("[kernel] All applications completed!");
+            sbi::shutdown();
         }
     }
 }
