@@ -22,6 +22,7 @@ mod switch;
 mod task;
 
 use crate::loader::get_app_data_by_name;
+use crate::sbi;
 use alloc::sync::Arc;
 use lazy_static::*;
 pub use manager::{fetch_task, TaskManager};
@@ -68,7 +69,8 @@ pub fn exit_current_and_run_next(exit_code: i32) {
             "[kernel] Idle process exit with exit_code {} ...",
             exit_code
         );
-        panic!("All applications completed!");
+        println!("[kernel] All applications completed!");
+        sbi::shutdown();
     }
 
     // **** access current TCB exclusively
